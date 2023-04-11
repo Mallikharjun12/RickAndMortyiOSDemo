@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Controller to show and search for Characters
 final class RMCharacterViewController: UIViewController {
 
 
@@ -14,7 +15,8 @@ final class RMCharacterViewController: UIViewController {
         super.viewDidLoad()
         title = "Character"
         view.backgroundColor = .systemBackground
-        
+    
+    
     }
 
 }

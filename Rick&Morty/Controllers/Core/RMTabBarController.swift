@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Controller to house tabs and Root tab controllers
 final class RMTabBarController: UITabBarController {
 
     override func viewDidLoad() {
@@ -36,7 +37,6 @@ final class RMTabBarController: UITabBarController {
         
         for nav in [nav1,nav2,nav3, nav4] {
             nav.navigationBar.prefersLargeTitles = true
-           // nav.navigationBar.isTranslucent = false
             nav.navigationBar.backgroundColor = .tertiarySystemGroupedBackground
         }
         
