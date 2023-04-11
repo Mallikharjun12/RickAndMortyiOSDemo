@@ -16,7 +16,7 @@ final class RMCharacterViewController: UIViewController {
         title = "Character"
         view.backgroundColor = .systemBackground
     
-    
+
     }
 
 }
