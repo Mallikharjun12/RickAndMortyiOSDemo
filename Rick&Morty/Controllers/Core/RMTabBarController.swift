@@ -37,7 +37,7 @@ final class RMTabBarController: UITabBarController {
         
         for nav in [nav1,nav2,nav3, nav4] {
             nav.navigationBar.prefersLargeTitles = true
-            nav.navigationBar.backgroundColor = .tertiarySystemGroupedBackground
+           // nav.navigationBar.backgroundColor = .tertiarySystemGroupedBackground
         }
         
         nav1.tabBarItem = UITabBarItem(title: "Characters",

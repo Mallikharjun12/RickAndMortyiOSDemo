@@ -27,7 +27,7 @@ final class RMCharacterListView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.alpha = 0
         collectionView.isHidden = true
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -37,6 +37,8 @@ final class RMCharacterListView: UIView {
         addSubviews(collectionView,spinner)
         addConstraints()
         spinner.startAnimating()
+        viewModel.delegate = self
+        viewModel.fetchCharacters()
         setUpCollectionView()
     }
     
@@ -59,16 +61,24 @@ final class RMCharacterListView: UIView {
         collectionView.dataSource = viewModel
         collectionView.delegate = viewModel 
         DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-            self.spinner.stopAnimating()
-            self.collectionView.isHidden = false
-            
-            UIView.animate(withDuration: 0.5) {
-                self.collectionView.alpha = 1
-            }
+           
         }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension RMCharacterListView:RMCharacterListViewViewModelDelegate {
+    
+    func didLoadInitialCharacters() {
+        spinner.stopAnimating()
+        collectionView.isHidden = false
+        collectionView.reloadData() // Reload for initial fetch
+        UIView.animate(withDuration: 0.4) {
+            self.collectionView.alpha = 1
+        }
+       
     }
 }

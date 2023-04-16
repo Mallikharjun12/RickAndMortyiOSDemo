@@ -7,13 +7,38 @@
 
 import UIKit
 
+protocol RMCharacterListViewViewModelDelegate:AnyObject {
+    func didLoadInitialCharacters()
+}
+
 class RMCharacterListViewViewModel:NSObject {
     
+    public weak var delegate:RMCharacterListViewViewModelDelegate?
+    
+    private var characters:[RMCharacter] = [] {
+        didSet {
+            for character in characters {
+                let cellViewModel = RMCharacterCollectionViewCellViewModel(
+                    characterName: character.name,
+                    characterStatus: character.status,
+                    characterImageUrl: URL(string: character.image)
+                )
+                cellViewModels.append(cellViewModel)
+            }
+        }
+    }
+    
+    private var cellViewModels:[RMCharacterCollectionViewCellViewModel] = []
+    
     func fetchCharacters() {
-        RMService.shared.execute(.listCharacterRequests, expecting: RMGetAllCharactersResponse.self) { result in
+        RMService.shared.execute(.listCharacterRequests, expecting: RMGetAllCharactersResponse.self) {[weak self] result in
             switch result {
-            case .success(let success):
-                print(String(describing: success))
+            case .success(let responseModel):
+                let characters = responseModel.results
+                self?.characters = characters
+                DispatchQueue.main.async {
+                    self?.delegate?.didLoadInitialCharacters()
+                }
             case .failure(let error):
                 print(String(describing: error))
             }
@@ -24,12 +49,15 @@ class RMCharacterListViewViewModel:NSObject {
 extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return cellViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .systemGreen
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.identifier, for: indexPath) as? RMCharacterCollectionViewCell else {
+            fatalError("Unsupported")
+        }
+        let viewModel = cellViewModels[indexPath.row]
+        cell.configure(with: viewModel)
         return cell
     }
     
