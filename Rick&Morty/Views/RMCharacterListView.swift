@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol RMCharacterListViewDelegate:AnyObject {
+    func rmCharacterListView(_ characterListView:RMCharacterListView,
+                             didSelectCharacter character:RMCharacter)
+}
+
 /// View that handles showing List of characters, Loader etc.
 final class RMCharacterListView: UIView {
+    
+    public weak var delegate:RMCharacterListViewDelegate?
 
     private let viewModel = RMCharacterListViewViewModel()
     
@@ -22,12 +29,15 @@ final class RMCharacterListView: UIView {
     private lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.alpha = 0
         collectionView.isHidden = true
         collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterCollectionViewCell.identifier)
+        collectionView.register(RMFooterLoadingCollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier)
         return collectionView
     }()
     
@@ -71,6 +81,16 @@ final class RMCharacterListView: UIView {
 }
 
 extension RMCharacterListView:RMCharacterListViewViewModelDelegate {
+    
+    func didSelectCharacter(_ character: RMCharacter) {
+        delegate?.rmCharacterListView(self, didSelectCharacter: character)
+    }
+    
+    func didLoadMoreCharacters(with newIndexPaths: [IndexPath]) {
+        collectionView.performBatchUpdates {
+            self.collectionView.insertItems(at: newIndexPaths)
+        }
+    }
     
     func didLoadInitialCharacters() {
         spinner.stopAnimating()
