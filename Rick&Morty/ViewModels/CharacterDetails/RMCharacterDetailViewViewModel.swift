@@ -7,20 +7,43 @@
 
 import UIKit
 
-enum SectionTypes:CaseIterable {
-    case photo
-    case information
-    case episode
+enum SectionTypes {
+    case photo(viewModel: RMCharacterPhotoCollectionViewCellViewModel)
+    case information(viewModels:[RMCharacterInfoCollectionViewCellViewModel])
+    case episode(viewModels:[RMCharacterEpisodeCollectionViewCellViewModel])
 }
 
 final class RMCharacterDetailViewViewModel {
     
     private let character:RMCharacter
-    public let sections = SectionTypes.allCases
+    
+    public var sections:[SectionTypes] = []
     
     //MARK: Init
     init(character: RMCharacter) {
         self.character = character
+        setUpSections()
+    }
+    
+    private func setUpSections() {
+        
+        sections = [
+            .photo(viewModel: .init(imageUrl: URL(string: character.image))),
+            .information(viewModels: [
+                .init(type:.status   ,value: character.status.text),
+                .init(type: .gender   ,value: character.gender.rawValue),
+                .init(type: .type  ,value: character.type),
+                .init(type: .species  ,value: character.species),
+                .init(type: .origin  ,value: character.origin.name),
+                .init(type: .location  ,value: character.location.name),
+                .init(type: .created  ,value: character.created),
+                .init(type: .episodeCount ,value: "\(character.episode.count)"),
+            ]),
+            .episode(viewModels: character.episode.compactMap({
+                return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))
+            })
+            )
+        ]
     }
     
     public var title:String {
