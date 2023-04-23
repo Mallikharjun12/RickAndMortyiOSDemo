@@ -17,6 +17,10 @@ final class RMCharacterDetailViewViewModel {
     
     private let character:RMCharacter
     
+    public var episodes:[String] {
+        character.episode
+    }
+    
     public var sections:[SectionTypes] = []
     
     //MARK: Init
