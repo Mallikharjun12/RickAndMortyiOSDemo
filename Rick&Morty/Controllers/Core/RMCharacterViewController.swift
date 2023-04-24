@@ -17,18 +17,31 @@ final class RMCharacterViewController: UIViewController {
         title = "Character"
         view.backgroundColor = .systemBackground
         setUpView()
+        addSearchButton()
     }
     
-   private func setUpView() {
-        view.addSubview(characterListView)
-       characterListView.delegate = self
-        NSLayoutConstraint.activate([
-            characterListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            characterListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+    private func setUpView() {
+         view.addSubview(characterListView)
+        characterListView.delegate = self
+         NSLayoutConstraint.activate([
+             characterListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+             characterListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+             characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+             characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+         ])
+     }
+    
+    private func addSearchButton () {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
     }
+    
+    @objc private func didTapSearch() {
+        let vc = RMSearchViewController(config: RMSearchViewController.Config(type: .character))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+   
 
 }
 
