@@ -65,6 +65,7 @@
 		ADEA064F29E6785200AE97BD /* RMCharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA064E29E6785200AE97BD /* RMCharacterListView.swift */; };
 		ADF4027C29FFC0820003A25E /* RMLocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF4027B29FFC0820003A25E /* RMLocationDetailView.swift */; };
 		ADF4027F29FFC15F0003A25E /* RMLocationDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF4027E29FFC15F0003A25E /* RMLocationDetailViewViewModel.swift */; };
+		ADF4028129FFCF2D0003A25E /* RMTableLoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF4028029FFCF2D0003A25E /* RMTableLoadingFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,7 @@
 		ADEA064E29E6785200AE97BD /* RMCharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterListView.swift; sourceTree = "<group>"; };
 		ADF4027B29FFC0820003A25E /* RMLocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMLocationDetailView.swift; sourceTree = "<group>"; };
 		ADF4027E29FFC15F0003A25E /* RMLocationDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMLocationDetailViewViewModel.swift; sourceTree = "<group>"; };
+		ADF4028029FFCF2D0003A25E /* RMTableLoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMTableLoadingFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			children = (
 				AD7238E529FE5B4600954A2A /* RMLocationView.swift */,
 				AD7238EC29FE80A200954A2A /* RMLocationTableViewCell.swift */,
+				ADF4028029FFCF2D0003A25E /* RMTableLoadingFooterView.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				AD49EDC529EF024D00432161 /* RMImageLoader.swift in Sources */,
 				ADEA064329E5935100AE97BD /* RMSingleLocation.swift in Sources */,
 				ADEA064529E5940F00AE97BD /* RMCharacterStatus.swift in Sources */,
+				ADF4028129FFCF2D0003A25E /* RMTableLoadingFooterView.swift in Sources */,
 				ADAFA44D29F517D300F7A155 /* RMEpiosdeDetailViewController.swift in Sources */,
 				ADF4027F29FFC15F0003A25E /* RMLocationDetailViewViewModel.swift in Sources */,
 				AD49EDB729EC049E00432161 /* RMGetAllCharactersResponse.swift in Sources */,
