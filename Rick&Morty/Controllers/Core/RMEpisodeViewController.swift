@@ -25,6 +25,9 @@ final class RMEpisodeViewController: UIViewController {
     }
     
     @objc private func didTapSearch() {
+        let vc = RMSearchViewController(config: RMSearchViewController.Config(type: .episode))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
      private func setUpView() {
