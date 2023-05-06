@@ -11,6 +11,7 @@
 		AD3F22E72A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3F22E62A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift */; };
 		AD3F22E92A03B4D400ADDE20 /* RMSearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3F22E82A03B4D400ADDE20 /* RMSearchInputView.swift */; };
 		AD3F22EB2A03B4F100ADDE20 /* RMSearchInputViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3F22EA2A03B4F100ADDE20 /* RMSearchInputViewViewModel.swift */; };
+		AD3F22ED2A03E51E00ADDE20 /* RMSearchOptionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3F22EC2A03E51E00ADDE20 /* RMSearchOptionPickerViewController.swift */; };
 		AD49EDAB29EBCC5900432161 /* RMCharacterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49EDAA29EBCC5900432161 /* RMCharacterCollectionViewCell.swift */; };
 		AD49EDAD29EBCD8800432161 /* RMCharacterCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49EDAC29EBCD8800432161 /* RMCharacterCollectionViewCellViewModel.swift */; };
 		AD49EDB729EC049E00432161 /* RMGetAllCharactersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49EDB629EC049E00432161 /* RMGetAllCharactersResponse.swift */; };
@@ -79,6 +80,7 @@
 		AD3F22E62A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNoSearchResultsViewViewModel.swift; sourceTree = "<group>"; };
 		AD3F22E82A03B4D400ADDE20 /* RMSearchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchInputView.swift; sourceTree = "<group>"; };
 		AD3F22EA2A03B4F100ADDE20 /* RMSearchInputViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchInputViewViewModel.swift; sourceTree = "<group>"; };
+		AD3F22EC2A03E51E00ADDE20 /* RMSearchOptionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchOptionPickerViewController.swift; sourceTree = "<group>"; };
 		AD49EDAA29EBCC5900432161 /* RMCharacterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterCollectionViewCell.swift; sourceTree = "<group>"; };
 		AD49EDAC29EBCD8800432161 /* RMCharacterCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		AD49EDB629EC049E00432161 /* RMGetAllCharactersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMGetAllCharactersResponse.swift; sourceTree = "<group>"; };
@@ -155,6 +157,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD3F22EE2A03E6B700ADDE20 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				AD3F22EC2A03E51E00ADDE20 /* RMSearchOptionPickerViewController.swift */,
+				ADAFA45C29F6691400F7A155 /* RMSearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		AD49EDB529EC046700432161 /* APIResponseTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,9 +179,9 @@
 		AD49EDBA29EC095E00432161 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				AD3F22EE2A03E6B700ADDE20 /* Search */,
 				AD49EDBB29EC097B00432161 /* RMCharacterDetailViewController.swift */,
 				ADAFA44C29F517D300F7A155 /* RMEpiosdeDetailViewController.swift */,
-				ADAFA45C29F6691400F7A155 /* RMSearchViewController.swift */,
 				AD7238F029FE8FDD00954A2A /* RMLocationDetailViewController.swift */,
 			);
 			path = Other;
@@ -544,6 +555,7 @@
 				ADF4028729FFE0FD0003A25E /* RMSearchView.swift in Sources */,
 				AD3F22E92A03B4D400ADDE20 /* RMSearchInputView.swift in Sources */,
 				AD49EDB729EC049E00432161 /* RMGetAllCharactersResponse.swift in Sources */,
+				AD3F22ED2A03E51E00ADDE20 /* RMSearchOptionPickerViewController.swift in Sources */,
 				AD3F22E72A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift in Sources */,
 				AD3F22E52A03B47100ADDE20 /* RMNoSearchResultsView.swift in Sources */,
 				ADEA064729E5945200AE97BD /* RMCharacterGender.swift in Sources */,

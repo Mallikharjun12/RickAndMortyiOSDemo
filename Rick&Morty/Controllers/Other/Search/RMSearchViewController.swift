@@ -7,6 +7,11 @@
 
 import UIKit
 
+//Dynamic search option view
+//Render results
+//Render no results/zero state
+//searching/api call
+
 /// Configurable Controller to search
 final class RMSearchViewController: UIViewController {
     
@@ -53,7 +58,18 @@ final class RMSearchViewController: UIViewController {
         title = viewModel.config.type.title
         view.backgroundColor = .systemBackground
         view.addSubviews(searchView)
+        searchView.delegate = self
         addConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(didTapSearch))
+        searchView.presentKeyBoard()
+    }
+    
+    @objc private func didTapSearch() {
+        viewModel.executeSearch()
     }
     
     private func addConstraints() {
@@ -65,4 +81,17 @@ final class RMSearchViewController: UIViewController {
         ])
     }
     
+}
+//MARK: RMSearchViewDelegate
+extension RMSearchViewController:RMSearchViewDelegate {
+    func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
+        let vc = RMSearchOptionPickerViewController(option: option) {[weak self] selection in
+            DispatchQueue.main.async {
+                self?.viewModel.set(value: selection, option: option)
+            }
+        }
+        vc.sheetPresentationController?.detents = [.medium()]
+        vc.sheetPresentationController?.prefersGrabberVisible = true
+        present(vc, animated: true)
+    }
 }
