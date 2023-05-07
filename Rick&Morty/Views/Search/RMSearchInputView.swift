@@ -8,9 +8,15 @@
 import UIKit
 
 protocol RMSearchInputViewDelegate:AnyObject {
-    func rmSearchInputView(_ inputView:RMSearchInputView, didSelectOption option:RMSearchInputViewViewModel.DynamicOption)
+    func rmSearchInputView(_ inputView:RMSearchInputView,
+                           didSelectOption option:RMSearchInputViewViewModel.DynamicOption)
+    func rmSearchInputView(_ inputView:RMSearchInputView,
+                           didChangeSearchText text:String)
+    func rmSearchInputViewdidTapSearchKeyboardButton(_ inputView:RMSearchInputView)
+                           
 }
 
+/// VIew for top part of search screen with search bar
 final class RMSearchInputView: UIView {
 
     weak var delegate:RMSearchInputViewDelegate?
@@ -40,6 +46,7 @@ final class RMSearchInputView: UIView {
         backgroundColor = .systemBackground
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(searchBar)
+        searchBar.delegate = self
         addConstraints()
     }
     
@@ -126,9 +133,22 @@ final class RMSearchInputView: UIView {
         }
         
         let button = buttons[index]
-        button.setAttributedTitle(NSAttributedString(string: value.uppercased(),
-                                                     attributes: [.foregroundColor:UIColor.link,
-                                                                  .font:UIFont.systemFont(ofSize: 18, weight: .medium) ]),
+        button.setAttributedTitle(NSAttributedString(
+            string: value.uppercased(),
+            attributes: [.foregroundColor:UIColor.link,
+                         .font:UIFont.systemFont(ofSize: 18, weight: .medium) ]),
                                   for: .normal)
+    }
+}
+
+//MARK: UISearchBarDelegate
+extension RMSearchInputView:UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        delegate?.rmSearchInputView(self, didChangeSearchText: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        delegate?.rmSearchInputViewdidTapSearchKeyboardButton(self)
     }
 }
