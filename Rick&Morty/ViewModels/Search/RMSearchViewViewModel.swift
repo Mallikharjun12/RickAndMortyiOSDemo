@@ -22,6 +22,10 @@ final class RMSearchViewViewModel {
     
     private var searchResultHandler:((RMSearchResultViewModel)->Void)?
     
+    private var noResultsHandler:(()->Void)?
+    
+    private var searchResultModel:Codable?
+    
     private var searchText = ""
     
     //MARK: Init
@@ -33,6 +37,10 @@ final class RMSearchViewViewModel {
     
     public func registerSearchResultHandler(_ block: @escaping (RMSearchResultViewModel)->Void) {
         self.searchResultHandler = block
+    }
+    
+    public func registerNoResultsHandler(_ block: @escaping ()->Void) {
+        self.noResultsHandler = block
     }
     
     public func executeSearch() {
@@ -70,6 +78,7 @@ final class RMSearchViewViewModel {
             case .success(let model):
                 self?.processSearchResults(model)
             case .failure(let error):
+                self?.handleNoResults()
                 print(error.localizedDescription)
             }
         }
@@ -97,12 +106,17 @@ final class RMSearchViewViewModel {
         }
         
         if let results = resultsVM {
+            self.searchResultModel = model
             self.searchResultHandler?(results)
         } else {
             // fall back error
+            handleNoResults()
         }
     }
     
+    private func handleNoResults() {
+        self.noResultsHandler?()
+    }
     
     public func set(query text:String) {
         self.searchText = text
@@ -116,5 +130,12 @@ final class RMSearchViewViewModel {
     
     public func registerOptionChangeBlock(_ block: @escaping ((RMSearchInputViewViewModel.DynamicOption,String))->Void) {
         self.optionMapUpdateBlock = block
+    }
+    
+    public func locationSearchResult(at index:Int) -> RMLocation? {
+        guard let searchModel = searchResultModel as? RMGetAllLocationsResponse else {
+            return nil
+        }
+        return searchModel.results[index]
     }
 }
