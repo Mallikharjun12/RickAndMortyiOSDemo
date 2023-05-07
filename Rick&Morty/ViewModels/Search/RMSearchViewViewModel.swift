@@ -20,7 +20,7 @@ final class RMSearchViewViewModel {
     
     private var optionMapUpdateBlock:(((RMSearchInputViewViewModel.DynamicOption,String))->Void)?
     
-    private var searchResultHandler:(()->Void)?
+    private var searchResultHandler:((RMSearchResultViewModel)->Void)?
     
     private var searchText = ""
     
@@ -31,7 +31,7 @@ final class RMSearchViewViewModel {
     
     //MARK: Public
     
-    public func registerSearchResultHandler(_ block: @escaping ()->Void) {
+    public func registerSearchResultHandler(_ block: @escaping (RMSearchResultViewModel)->Void) {
         self.searchResultHandler = block
     }
     
@@ -53,16 +53,56 @@ final class RMSearchViewViewModel {
         let request = RMRequest(endpoint: config.type.endPoint,queryParameters: queryParams)
             // print("search url is:\(request.url?.absoluteString)")
         //send Api call
-        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
-            switch result {
-            case .success(let model):
-                print("Search Results Found:\(model.results.count)")
-            case .failure(let error):
-                print("Error:\(error.localizedDescription)")
-            }
+        switch config.type.endPoint {
+        case .character:
+            makeSearchApiCall(request: request, RMGetAllCharactersResponse.self)
+        case .location:
+            makeSearchApiCall(request: request, RMGetAllLocationsResponse.self)
+        case .episode:
+            makeSearchApiCall(request: request, RMGetAllEpisodesResponse.self)
         }
         //Notify view of results/Noresults/error
     }
+    
+    private func makeSearchApiCall<T:Codable> (request:RMRequest, _ type: T.Type) {
+        RMService.shared.execute(request, expecting: type) {[weak self] result in
+            switch result {
+            case .success(let model):
+                self?.processSearchResults(model)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func processSearchResults(_ model:Codable) {
+        var resultsVM:RMSearchResultViewModel?
+        if let characterResults = model as? RMGetAllCharactersResponse {
+            resultsVM = .characters(characterResults.results.compactMap({
+                return RMCharacterCollectionViewCellViewModel(
+                    characterName: $0.name,
+                    characterStatus: $0.status,
+                    characterImageUrl: URL(string: $0.image))
+            }))
+        } else if let episodeResults = model as? RMGetAllEpisodesResponse {
+            resultsVM = .episodes(episodeResults.results.compactMap({
+                return RMCharacterEpisodeCollectionViewCellViewModel(
+                    episodeDataUrl: URL(string: $0.url)
+                )
+            }))
+        } else if let locationResults = model as? RMGetAllLocationsResponse {
+            resultsVM = .locations(locationResults.results.compactMap({
+                return RMLocationTableViewCellViewModel(location: $0)
+            }))
+        }
+        
+        if let results = resultsVM {
+            self.searchResultHandler?(results)
+        } else {
+            // fall back error
+        }
+    }
+    
     
     public func set(query text:String) {
         self.searchText = text

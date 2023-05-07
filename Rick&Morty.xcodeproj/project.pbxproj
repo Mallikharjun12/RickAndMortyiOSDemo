@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD3C8B5C2A07BFC700DAFA22 /* RMSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3C8B5B2A07BFC700DAFA22 /* RMSearchResultViewModel.swift */; };
 		AD3F22E52A03B47100ADDE20 /* RMNoSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3F22E42A03B47100ADDE20 /* RMNoSearchResultsView.swift */; };
 		AD3F22E72A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3F22E62A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift */; };
 		AD3F22E92A03B4D400ADDE20 /* RMSearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3F22E82A03B4D400ADDE20 /* RMSearchInputView.swift */; };
@@ -76,6 +77,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD3C8B5B2A07BFC700DAFA22 /* RMSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchResultViewModel.swift; sourceTree = "<group>"; };
 		AD3F22E42A03B47100ADDE20 /* RMNoSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNoSearchResultsView.swift; sourceTree = "<group>"; };
 		AD3F22E62A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNoSearchResultsViewViewModel.swift; sourceTree = "<group>"; };
 		AD3F22E82A03B4D400ADDE20 /* RMSearchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchInputView.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				ADF4028329FFE0AE0003A25E /* RMSearchViewViewModel.swift */,
 				AD3F22E62A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift */,
 				AD3F22EA2A03B4F100ADDE20 /* RMSearchInputViewViewModel.swift */,
+				AD3C8B5B2A07BFC700DAFA22 /* RMSearchResultViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				AD3F22E92A03B4D400ADDE20 /* RMSearchInputView.swift in Sources */,
 				AD49EDB729EC049E00432161 /* RMGetAllCharactersResponse.swift in Sources */,
 				AD3F22ED2A03E51E00ADDE20 /* RMSearchOptionPickerViewController.swift in Sources */,
+				AD3C8B5C2A07BFC700DAFA22 /* RMSearchResultViewModel.swift in Sources */,
 				AD3F22E72A03B49000ADDE20 /* RMNoSearchResultsViewViewModel.swift in Sources */,
 				AD3F22E52A03B47100ADDE20 /* RMNoSearchResultsView.swift in Sources */,
 				ADEA064729E5945200AE97BD /* RMCharacterGender.swift in Sources */,
