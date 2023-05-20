@@ -122,7 +122,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.identifier, for: indexPath) as? RMCharacterCollectionViewCell else {
             fatalError("Unsupported")
         }
-        let viewModel = cellViewModels[indexPath.row]
+        let viewModel = cellViewModels[indexPath.row]        
         cell.configure(with: viewModel)
         return cell
     }

@@ -69,10 +69,7 @@ final class RMCharacterListView: UIView {
     
     private func setUpCollectionView() {
         collectionView.dataSource = viewModel
-        collectionView.delegate = viewModel 
-        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-           
-        }
+        collectionView.delegate = viewModel
     }
     
     required init?(coder: NSCoder) {
