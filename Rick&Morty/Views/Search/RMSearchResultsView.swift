@@ -9,6 +9,8 @@ import UIKit
 
 protocol RMSearchResultsViewDelegate:AnyObject {
     func rmSearchResultsView(_ resultsView:RMSearchResultsView,didTapLocationAt Index:Int)
+    func rmSearchResultsView(_ resultsView:RMSearchResultsView,didTapCharacterAt Index:Int)
+    func rmSearchResultsView(_ resultsView:RMSearchResultsView,didTapEpisodeAt Index:Int)
 }
 
 /// shows the searchResults UI  (TableView or collectionView as needed)
@@ -38,7 +40,7 @@ final class RMSearchResultsView: UIView {
     private lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isHidden = true
@@ -176,6 +178,19 @@ extension RMSearchResultsView:UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         //Handle Cell Tap
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        switch viewModel.results {
+        
+        case .characters(_):
+            delegate?.rmSearchResultsView(self, didTapCharacterAt: indexPath.row)
+        case .episodes(_):
+            delegate?.rmSearchResultsView(self, didTapEpisodeAt: indexPath.row)
+        case .locations:
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -183,18 +198,13 @@ extension RMSearchResultsView:UICollectionViewDelegate, UICollectionViewDataSour
         let bounds = collectionView.bounds
         if currentViewModel is RMCharacterCollectionViewCellViewModel {
             //character size
-            let isIphone = UIDevice.current.userInterfaceIdiom == .phone
             let width:CGFloat
-            if isIphone {
-               width = (bounds.width-30)/2
-            } else {
-                width = (bounds.width-50)/4
-            }
+            width = UIDevice.isiphone ? (bounds.width-30)/2 : (bounds.width-50)/4
             return CGSize(width: width,
                           height: width*1.5)
         }
         // Episode size
-        let width = bounds.width - 20
+        let width = UIDevice.isiphone ? bounds.width - 20 : (bounds.width-30)/2
         return CGSize(width: width, height: 100)
     }
     

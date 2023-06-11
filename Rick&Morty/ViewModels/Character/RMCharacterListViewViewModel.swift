@@ -149,10 +149,9 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let isIphone = UIDevice.current.userInterfaceIdiom == .phone
         let bounds = collectionView.bounds
         let width:CGFloat
-        if isIphone {
+        if UIDevice.isiphone {
            width = (bounds.width-30)/2
         } else {
             width = (bounds.width-50)/4
